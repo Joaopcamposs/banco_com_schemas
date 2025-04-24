@@ -72,14 +72,16 @@ def create_tenant_schema(schema_id: str):
 
     # 2) atribuir schema nos objetos
     for table in Base.metadata.sorted_tables:
-        table.schema = schema_id
+        if table.schema != "public":
+            table.schema = schema_id
 
     # 3) criar tabelas no novo schema
     Base.metadata.create_all(bind=engine)
 
     # 4) restaurar esquema padrão (public)
     for table in Base.metadata.sorted_tables:
-        table.schema = None
+        if table.schema != "public":
+            table.schema = None
 
 
 SCHEMAS_PARA_NAO_LISTAR: tuple[str, ...] = (
@@ -113,8 +115,6 @@ def verificar_schema_existente(schema_id: str) -> None:
 
 
 def criar_primeira_empresa_e_usuario():
-    from src.models import Empresa, Usuario
-
     schemas = listar_schemas_existentes()
     # verificar se algum schema é um uuid valido
     for schema in schemas:
@@ -134,19 +134,9 @@ def criar_primeira_empresa_e_usuario():
     create_tenant_schema(str(id_empresa))
 
     # criar empresa
-    with get_tenant_session(str(id_empresa)) as db:
-        emp = Empresa(nome="Empresa 1", id=id_empresa)
-        db.add(emp)
-        db.commit()
-        db.refresh(emp)
+    from src.repositorios import CompanyRepository, UserRepository
+
+    CompanyRepository().create("Empresa 1", id_empresa)
 
     # criar usuario
-    with get_tenant_session(str(id_empresa)) as db:
-        user = Usuario(
-            email=EMAIL_PRIMEIRO_USUARIO,
-            senha=SENHA_PRIMEIRO_USUARIO,
-            empresa_id=id_empresa,
-        )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
+    UserRepository().create(EMAIL_PRIMEIRO_USUARIO, SENHA_PRIMEIRO_USUARIO, id_empresa)

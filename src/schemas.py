@@ -22,3 +22,13 @@ class LerUsuarioSchema(BaseModel):
     id: UUID4
     email: str
     empresa_id: UUID4
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None
+    scopes: list[str] = []
