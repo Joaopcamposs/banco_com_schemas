@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "banco-com-schemas"
+version = "0.1.0"
+description = ""
+authors = ["joaopcamposs <joaopcamposs@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+fastapi = {extras = ["all"], version = "^0.115.12"}
+sqlalchemy = "^2.0.40"
+asyncpg = "^0.30.0"
+psycopg2 = "^2.9.10"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.packages]]
+include = "src"

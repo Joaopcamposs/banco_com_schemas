@@ -1,0 +1,22 @@
+services:
+  api:
+    build:
+      context: .
+    container_name: fastapi_app_bcs
+    ports:
+      - "8009:8000"
+    depends_on:
+      - postgres
+    environment:
+      - IN_DOCKER=true
+      - DB_HOST=postgres
+
+  postgres:
+    image: postgres:16
+    container_name: postgres_db_bcs
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5439:5432"

@@ -1,0 +1,8 @@
+.idea
+__pycache__
+.env
+.ruff_cache
+
+app/__pycache__
+tests/.pytest_cache
+tests/__pycache__
