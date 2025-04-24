@@ -10,11 +10,11 @@ python = ">=3.11"
 fastapi = {extras = ["all"], version = "^0.115.12"}
 sqlalchemy = "^2.0.40"
 asyncpg = "^0.30.0"
-psycopg2 = "^2.9.10"
 pyjwt = "^2.10.1"
 cryptography = "^44.0.2"
 passlib = "^1.7.4"
 bcrypt = "^4.3.0"
+psycopg2-binary = "^2.9.10"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
