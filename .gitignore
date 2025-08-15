@@ -2,6 +2,7 @@
 __pycache__
 .env
 .ruff_cache
+.venv
 
 app/__pycache__
 tests/.pytest_cache

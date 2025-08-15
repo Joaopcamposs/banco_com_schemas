@@ -9,8 +9,8 @@ compose:
 ruff:
 	ruff format . && ruff check . --fix
 
-poetry-install:
-	poetry lock && poetry install
+install:
+	uv sync
 
-poetry-activate:
-	poetry env activate
+activate:
+	uv venv
